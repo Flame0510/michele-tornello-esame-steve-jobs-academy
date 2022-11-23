@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,7 +10,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { users } from "../../users";
 import { User } from "../../models/users";
 import { Alert, AlertColor, Snackbar } from "@mui/material";
 import { useState } from "react";
@@ -42,7 +39,12 @@ const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setLocalStorageItem } = useLocalStorage();
+  const { getLocalStorageItem, setLocalStorageItem } = useLocalStorage();
+
+  const { users } = getLocalStorageItem("users");
+
+  console.log(users);
+  
 
   const [snackbarVisibility, setSnackbarVisibility] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
@@ -75,8 +77,14 @@ export default function Login() {
             user.username === username && user.password === password
         );
 
+        console.log(user);
+        
+
       if (user) {
-        setLocalStorageItem("user", { username });
+        const id = user.id;
+        console.log(id);
+        
+        setLocalStorageItem("user", { id, username });
 
         showSnackbar("Credenziali corrette!", "success", 2000);
         navigate("/");

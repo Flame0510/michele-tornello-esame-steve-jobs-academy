@@ -12,7 +12,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { users } from "../../users";
 import { User } from "../../models/users";
 import { Alert, AlertColor, Snackbar } from "@mui/material";
 import { useState } from "react";
@@ -42,7 +41,9 @@ const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setLocalStorageItem } = useLocalStorage();
+  const { getLocalStorageItem, setLocalStorageItem } = useLocalStorage();
+
+  const { users } = getLocalStorageItem("users");
 
   const [snackbarVisibility, setSnackbarVisibility] = useState<boolean>(false);
   const [snackbarMessage, setSnackbarMessage] = useState<string>("");
@@ -72,7 +73,12 @@ export default function Login() {
         users.length && users.find((user: User) => user.username === username);
 
       if (!user) {
-        users.push({ username, password } as User);
+        const id = users.length + 1;
+
+        console.log(id);
+
+        users.push({ id, username, password });
+        setLocalStorageItem("users", { users });
 
         showSnackbar("Credenziali corrette!", "success", 2000);
         navigate("/signin");

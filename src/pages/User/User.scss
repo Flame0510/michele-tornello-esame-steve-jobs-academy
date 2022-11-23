@@ -1,3 +1,52 @@
-.user-page{
-    
+.user-page {
+  .user-content {
+    width: 100%;
+
+    color: #fff;
+    background: #9c27b0;
+
+    padding: 16px;
+
+    border-radius: 4px;
+
+    .user-action-btn {
+      margin-top: 16px;
+
+      font-size: 16px;
+
+      padding: 8px;
+
+      border-radius: 4px;
+
+      transition: 0.3s;
+
+      &.user-chat-now-btn {
+        color: #9c27b0;
+        background: #fff;
+
+        border: 1px solid #fff;
+
+        cursor: pointer;
+
+        &:hover {
+          color: #fff;
+          background: #9c27b0;
+        }
+      }
+
+      &.user-logout-btn {
+        color: #fff;
+        background: red;
+
+        border: 1px solid #9c27b0;
+
+        cursor: pointer;
+
+        &:hover {
+          color: #9c27b0;
+          background: #fff;
+        }
+      }
+    }
+  }
 }
